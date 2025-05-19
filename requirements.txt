@@ -1,0 +1,10 @@
+einops==0.8.1
+matplotlib==3.7.1
+numpy==1.25.2
+pandas==2.2.3
+scikit_learn==1.6.1
+timm==1.0.15
+torch==2.5.1
+tqdm==4.63.1
+tqdm==4.67.1
+transformers==4.49.0

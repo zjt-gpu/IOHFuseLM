@@ -1,0 +1,27 @@
+from transformers import GPT2Tokenizer, GPT2Model
+
+tokenizer = GPT2Tokenizer.from_pretrained("./GPT2")
+
+new_tokens = [
+    "Others", "adolescent", "adrenal", "adrenaline", "adrenergic",
+    "catecholamine", "catecholamines", "clean", "clean-contaminated", "decreased",
+    "elective", "estrogen", "high", "high-risk", "intermediate", "low",
+    "low-risk", "major", "minimal", "minimally invasive", "minor",
+    "neuroendocrine", "non-cardiac", "non-cardiovascular", "non-major",
+    "norepinephrine", "sex", "stress", "stressful", "thyroid",
+    "vasoactive", "vasoconstrictive", "vasoconstrictor"
+]
+
+num_added = tokenizer.add_tokens(new_tokens)
+tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+print(f"添加了 {num_added} 个新 token")
+
+model = GPT2Model.from_pretrained("./GPT2")
+
+model.resize_token_embeddings(len(tokenizer))
+
+model.save_pretrained("./GPT2_VitalDB")
+tokenizer.save_pretrained("./GPT2_VitalDB")
+
+model_new = GPT2Model.from_pretrained("./GPT2_VitalDB")
+print(f"模型 embedding 维度: {model_new.wte.weight.shape}")
