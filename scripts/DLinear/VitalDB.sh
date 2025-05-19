@@ -7,7 +7,6 @@ python main.py \
     --data_path all_patient.csv \
     --split_name cutted3sinput15mpredict5m \
     --dataset_name VitalDB \
-    --model_path ./GPT2_VitalDB \
     --data Blood \
     --seq_len $seq_len \
     --pred_len 100 \
@@ -28,7 +27,6 @@ python main.py \
     --data_path all_patient.csv \
     --split_name cutted3sinput15mpredict10m \
     --dataset_name VitalDB \
-    --model_path ./GPT2_VitalDB \
     --data Blood \
     --seq_len $seq_len \
     --pred_len 200 \
@@ -49,7 +47,6 @@ python main.py \
     --data_path all_patient.csv \
     --split_name cutted3sinput15mpredict15m \
     --dataset_name VitalDB \
-    --model_path ./GPT2_VitalDB \
     --data Blood \
     --seq_len $seq_len \
     --pred_len 300 \
