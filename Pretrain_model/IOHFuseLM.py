@@ -22,7 +22,6 @@ class IOHFuseLM(nn.Module):
 
         self.padding_patch_layer = nn.ReplicationPad1d((0, self.stride)) 
         self.mask_rate = 0.2
-        
         self.tokenizer = GPT2Tokenizer.from_pretrained(configs.tokenizer_path)
         
         if configs.is_gpt:
