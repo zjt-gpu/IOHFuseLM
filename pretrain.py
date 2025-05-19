@@ -51,7 +51,6 @@ def pretrain(args):
         if not os.path.exists(path):
             os.makedirs(path)
         
-        # 数据加载
         train_data, train_loader = data_provider(args, 'train', 'pretrain')
         vali_data, vali_loader = data_provider(args, 'val', 'pretrain')
 
@@ -67,10 +66,8 @@ def pretrain(args):
         model_optim = torch.optim.Adam(params, lr=args.pretrain_learning_rate)
         early_stopping = EarlyStopping(patience=args.pretrain_patience, verbose=True)
         
-        # 选择损失函数
         
         if args.loss_func == 'mse':
-            # criterion = nn.MSELoss()
             criterion = MaskedMSELoss()
         elif args.loss_func == 'smape':
             class SMAPE(nn.Module):
@@ -136,16 +133,13 @@ def pretrain(args):
                 batch_y = torch.as_tensor(batch_y).to(device)
                 pretrain_input = torch.cat([batch_x, batch_y], dim=1)
                 pretrain_input = pretrain_input.float()
-                # 前向传播
                 outputs, mask = model(pretrain_input, text, ii)
                 outputs = outputs[:, -(args.seq_len + args.pred_len):, :]
                 
-                # 计算损失
                 loss = criterion(outputs, pretrain_input, mask)
                 
                 train_loss.append(loss.item())
 
-                # 反向传播
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), max_norm=4.0)
                 model_optim.step()
@@ -160,20 +154,17 @@ def pretrain(args):
 
             print(f"Epoch {epoch + 1} finished, cost time: {time.time() - epoch_time:.2f}s")
 
-            # 计算损失
             train_loss = np.mean(train_loss)
             purpose = 'pretrain'
             vali_loss = vali(model, vali_data, vali_loader, criterion, args, device, ii, purpose)
             print(f"Epoch {epoch + 1}, Train Loss: {train_loss:.7f}, Vali Loss: {vali_loss:.7f}")
 
-            # 学习率调整
             if args.cos:
                 scheduler.step()
                 print(f"Updated learning rate: {model_optim.param_groups[0]['lr']:.10f}")
             else:
                 adjust_learning_rate(model_optim, epoch + 1, args, 'pretrain')
-                
-            # 早停判断
+            
             early_stopping(vali_loss, model, path)
             if early_stopping.early_stop:
                 print("Early stopping triggered")
