@@ -59,7 +59,6 @@ def fine_tune(args):
         
         early_stopping = EarlyStopping(patience=args.finetune_patience, verbose=True)
         
-        # 选择损失函数
         if args.loss_func == 'mse':
             criterion = nn.MSELoss()
         elif args.loss_func == 'smape':
@@ -147,5 +146,3 @@ def fine_tune(args):
     
     
     return inverse_maes, inverse_mses, inverse_low_mses, inverse_low_maes, accuracys, specificitys, precisions, recalls, f1s, aucs, num_pos_labels, num_neg_labels, num_pos_preds, num_neg_preds
-
-
