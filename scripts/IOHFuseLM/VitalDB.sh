@@ -21,7 +21,7 @@ python main.py \
     --model $model \
     --tmax 10 \
     --sampling_rate 3 \
-    --model_path ./GPT2_VitalDB \
+    --tokenizer_path ./GPT2_VitalDB \
     --max_txt_len 80 \
     --device_id cuda:7
 
@@ -45,7 +45,7 @@ python main.py \
     --model $model \
     --tmax 10 \
     --sampling_rate 3 \
-    --model_path ./GPT2_VitalDB \
+    --tokenizer_path ./GPT2_VitalDB \
     --max_txt_len 80 \
     --device_id cuda:7
 
@@ -69,6 +69,6 @@ python main.py \
     --model $model \
     --tmax 10 \
     --sampling_rate 3 \
-    --model_path ./GPT2_VitalDB \
+    --tokenizer_path ./GPT2_VitalDB \
     --max_txt_len 80 \
     --device_id cuda:7
