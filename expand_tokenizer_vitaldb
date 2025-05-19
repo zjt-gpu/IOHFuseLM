@@ -14,7 +14,7 @@ new_tokens = [
 
 num_added = tokenizer.add_tokens(new_tokens)
 tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-print(f"添加了 {num_added} 个新 token")
+print(f"{num_added} new tokens were added to the tokenizer vocabulary.")
 
 model = GPT2Model.from_pretrained("./GPT2")
 
@@ -24,4 +24,4 @@ model.save_pretrained("./GPT2_VitalDB")
 tokenizer.save_pretrained("./GPT2_VitalDB")
 
 model_new = GPT2Model.from_pretrained("./GPT2_VitalDB")
-print(f"模型 embedding 维度: {model_new.wte.weight.shape}")
+print(f"Updated model embedding size: {model_new.wte.weight.shape}")
