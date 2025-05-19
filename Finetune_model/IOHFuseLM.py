@@ -27,10 +27,10 @@ class IOHFuseLM(nn.Module):
         
         self.mask_rate = 0
         
-        self.tokenizer = GPT2Tokenizer.from_pretrained(configs.model_path)
+        self.tokenizer = GPT2Tokenizer.from_pretrained(configs.tokenizer_path)
         
         if configs.is_gpt:
-            self.gpt2 = GPT2Model.from_pretrained(configs.model_path)
+            self.gpt2 = GPT2Model.from_pretrained(configs.tokenizer_path)
             self.gpt2.h = self.gpt2.h[:configs.gpt_layers]
             print("gpt2 = {}".format(self.gpt2))
         
